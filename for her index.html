@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Message Website</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body, html {height:100%; font-family: Arial, sans-serif; overflow-x:hidden;}
+
+    section {
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      text-align:center;
+      color:white;
+      transition: opacity 0.8s ease;
+      opacity:1;
+    }
+    section.hidden {opacity:0; pointer-events:none;}
+
+    /* PAGE 1 */
+    #page1 {background: linear-gradient(135deg, pink, red);}
+    #page1 input, #page1 button {
+      width: 80%; max-width:300px;
+      padding:12px;
+      font-size:16px;
+      border-radius:8px;
+      border:none;
+      margin-top:15px;
+    }
+    #page1 button {
+      background:white;
+      color:red;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    #page1 button:hover {background:yellow;}
+    #page1 .hint {margin-top:10px; font-size:14px; color:yellow;}
+    #error {margin-top:10px; color:yellow; font-weight:bold;}
+
+    /* PAGE 2 */
+    #page2 {
+      background: linear-gradient(rgba(255,0,0,0.4), rgba(255,0,0,0.4)), 
+                  url('https://img.freepik.com/free-photo/red-roses-blurred-background_1373-518.jpg');
+      background-size:cover; background-position:center;
+    }
+    #page2 img {width:70%; max-width:300px; margin-bottom:20px; border-radius:12px;}
+    #page2 h1 {font-size:24px; text-shadow:2px 2px 6px rgba(0,0,0,0.7);}
+
+    /* PAGE 3 */
+    #page3 {
+      background: radial-gradient(circle at top left, #ff5f6d, #ffc371, #ff5f6d);
+      background-size:400% 400%;
+      animation: gradientFlow 12s ease infinite;
+      position:relative;
+    }
+    @keyframes gradientFlow {
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+    #page3 h1 {font-size:28px; margin-bottom:20px; text-shadow:2px 2px 6px rgba(0,0,0,0.7);}
+    #page3 a {
+      font-size:18px; color:white; text-decoration:none;
+      border:2px solid white; padding:10px 15px; border-radius:8px;
+      transition:0.3s; background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(6px);
+    }
+    #page3 a:hover {background:white; color:red;}
+
+    /* PAGE 4 */
+    #page4 {
+      background: linear-gradient(rgba(255,0,0,0.6), rgba(255,105,180,0.6)),
+                  url('https://img.freepik.com/free-photo/vintage-paper-background_1373-431.jpg');
+      background-size:cover; background-position:center;
+      padding:20px; justify-content:flex-start; align-items:flex-start; text-align:left;
+      font-family:'Georgia', serif; color:#fffaf0;
+      position:relative;
+      overflow:hidden;
+    }
+    #page4 h2 {font-size:28px; margin-bottom:15px; text-shadow:2px 2px 6px rgba(0,0,0,0.7);}
+    #page4 p {
+      font-size:18px; line-height:1.6;
+      max-width:90%; padding:15px; border-radius:12px;
+      background: rgba(255,0,0,0.3); backdrop-filter: blur(6px);
+    }
+
+    /* Arrow */
+    .arrow {font-size:40px; margin-top:15px; cursor:pointer; animation:bounce 1.5s infinite;}
+    @keyframes bounce {0%,100%{transform:translateY(0);} 50%{transform:translateY(10px);}}
+
+    /* Hearts */
+    .heart {position:absolute; bottom:0; color:pink; font-size:24px; animation: floatUp 6s infinite ease-in;}
+    @keyframes floatUp {0%{transform:translateY(0) scale(1);opacity:1;} 100%{transform:translateY(-100vh) scale(1.5);opacity:0;}}
+
+    /* MOBILE ADJUST */
+    @media (max-width:480px){
+      #page2 h1, #page3 h1 {font-size:20px;}
+      #page4 h2 {font-size:24px;}
+      #page4 p {font-size:16px;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1 -->
+  <section id="page1">
+    <h1>Enter Password to Unlock ❤️</h1>
+    <input type="password" id="password" placeholder="Enter Birthday (dd/mm)" autocomplete="off">
+    <button onclick="checkPassword()">Unlock</button>
+    <div class="hint">Hint: Format is <b>dd/mm</b> (e.g. 09/02)</div>
+    <div id="error"></div>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section id="page2" style="display:none;">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Love Image">
+    <h1>Do you have a band-aid? I just hurt my knee falling for you ❤️</h1>
+    <div class="arrow" onclick="showPage(3)">⬇️</div>
+  </section>
+
+  <!-- PAGE 3 -->
+  <section id="page3" style="display:none;">
+    <h1>Do you like my post?</h1>
+    <a href="https://www.instagram.com/p/DOTjI98D-5M/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">View on Instagram</a>
+    <div class="arrow" onclick="showPage(4)">⬇️</div>
+  </section>
+
+  <!-- PAGE 4 -->
+  <section id="page4" style="display:none;">
+    <h2>💌 SOME INSIDERS 💌</h2>
+    <p>
+      Actually, I’ve been wanting to tell you something for a while, but har baar words nahi milti. 😅
+      I really enjoy the time we spend together, even if it’s just small conversations ya messages. Har baar jab bhi tumhare saath baat hoti hai, meri day instantly better ho jaati hai.
+      Honestly, I like you… more than just a friend. I don’t expect anything, bas I wanted you to know how I feel. Tumhari smile aur tumhari vibe… it’s something I really admire. 💖
+      I hope ye WORDS tumhe awkward feel na karaye. Just wanted to share my feelings honestly.
+      Agar tum bhi aisa feel karti ho, that would be amazing. Aur agar nahi, I still value our friendship a lot. ❤️<br><br>
+      ,<br>
+      Someone who fell for you completely 💞
+    </p>
+  </section>
+
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+  <script>
+    function checkPassword(){
+      const pass = document.getElementById("password").value.trim();
+      if(pass==="09/02") showPage(2);
+      else document.getElementById("error").innerText="Wrong password! Try again.";
+    }
+
+    function showPage(page){
+      document.querySelectorAll('section').forEach(sec => sec.style.display='none');
+      const next = document.getElementById('page'+page);
+      next.style.display='flex';
+      
+      // Trigger confetti on Page 4
+      if(page===4){
+        confetti({
+          particleCount: 150,
+          spread: 100,
+          origin: { y: 0.6 },
+          colors: ['#ff6b6b','#ffcccb','#ff8c8c','#ffb6c1','#ffc0cb']
+        });
+      }
+    }
+
+    // Generate hearts for Page 3
+    const page3 = document.getElementById('page3');
+    for(let i=0;i<12;i++){
+      const heart = document.createElement('div');
+      heart.className='heart';
+      heart.style.left = Math.random()*100 + '%';
+      heart.style.fontSize = (16 + Math.random()*24) + 'px';
+      heart.style.animationDelay = (Math.random()*5) + 's';
+      heart.innerText='❤️';
+      page3.appendChild(heart);
+    }
+  </script>
+</body>
+</html>
